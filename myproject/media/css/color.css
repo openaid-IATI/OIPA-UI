@@ -1,0 +1,239 @@
+body {
+	background: url(/media/images/backgrounds/bg.jpg) repeat;
+	color:#3E3D40;
+	}
+	
+h1, h2 {
+   color:#2d6381;
+}
+
+a{
+   color:#2d6381;
+}
+
+a.active {
+	color:#f7931e;
+}
+
+h3 {
+   color:#d17f20;
+   }
+
+.breadcrumb, .breadcrumb li a {
+	color:#b1a899;
+}
+
+.sidebar.right h2{
+	color:#d17f20;
+	}
+
+.tri-col-box {
+	color:#666666;
+}
+
+
+.tri-col-box span a{
+	color:#d17f20;
+}
+
+.animated_map_content span a {
+	color:#F7931E;
+	}
+
+
+.relatedarticles {
+	color:#d17f20;
+}
+
+.subnav h2 {
+	color:#d17f20;
+	}
+	
+.subnav {
+	color:#2E6A98;
+	}
+		
+.position-left-full hr, .sidebar hr {
+	background: url(/media/images/backgrounds/hr.png);
+}
+
+.filters h1 {
+	color:#D17F20;
+	font-weight:normal;
+	}
+
+.sortbyfilters {
+	color:#2E6A98;
+	}
+	
+.savefilters {
+	color:#D17F20;
+	}
+	
+.savefilters a {
+	color:#D17F20;
+	}
+	
+.projectcontainer h2 {
+	color:#D17F20;
+}
+
+.color {
+	color:#2E6A98;
+}
+
+.search h2{
+	color:#D17F20;
+}
+
+.sidebar.left h2 {
+ 	color:#D17F20;
+}
+
+.searchbutton {
+	color:white;
+	}
+	
+.projectdetail {
+    color:#2E6A98;
+    }
+    
+.sidebarleftbg {
+	background: url(/images/backgrounds/sidebarleftbg.png) no-repeat;
+}
+	
+.project h1 {
+	color:#D17F20;
+}
+
+.projectcontainer a {
+	color:#D17F20;
+	}
+
+.faqquestion {
+	color:#2E6A98;
+	}
+
+.button_wrapper, .searchbutton_wrapper {
+	color:#D17F20;
+	}
+	
+.nrofprojects {
+	color:#2E6A98;
+	}
+	
+.paginatorbottom a.selected, .paginator a.selected {
+	color:#000;
+	}
+	
+.sharedownload {
+	color:#D17F20;
+	}
+
+.position-left h1 {
+    color: #2D6381;
+	}
+
+.position-left h3 {
+    color: #F7931E;
+	}
+	
+.savefilters .transparentbg {
+	background-color:#cec7b6;
+}
+
+.search input {
+   -moz-box-shadow:inset 0 0 4px #d2c8b6;
+   -webkit-box-shadow:inset 0 0 10px #d2c8b6;
+   box-shadow:inset 0 0 4px #d2c8b6;
+}
+
+.projectdetail .odd {
+	background-color:#f2e5d5;
+	}
+
+.projectdetail .secondcol {
+	color:#000;
+}
+
+.animated_map_wrapper {
+	color: #fff;
+	box-shadow: 3px 3px 3px #e4dac7;	
+}
+
+.animated_map{
+	/*background-color:#cec7b6;*/
+	background: url(/media/images/logos/worldmaphomepage.png) no-repeat;
+}
+
+.sidebar_wrapper {
+	color: #fff;
+}
+
+.sidebar_transparency {
+	background-color:#cec7b6;
+	}
+
+.button_transparency, .searchbutton_transparency {
+	background-color:#cec7b6;
+	}
+
+.search_transparency {
+	background-color:#cec7b6;
+	}
+
+.savefilters_transparency {
+	background-color:#cec7b6;
+   }
+   
+.sharedownload_transparency {
+	background-color:#cec7b6;
+}
+
+.socialshare_transparency {
+	background-color:#cec7b6;
+}
+
+.paginator_wrapper {
+	color: #fff;
+}
+
+.paginator_transparency {
+	background-color:#cec7b6;
+	}
+
+.listallcountries, .filters {
+	color:#2d6381;
+}
+
+.relatedarticles a {
+	color:#D17F20;
+	}
+	
+.relatedarticles a:hover {
+	text-decoration: underline;
+	}
+	
+.faqquestion a:hover {
+	color:#D17F20;
+	}
+
+.about a, .partners a , .faq a, .contact a{
+	color:#D17F20;
+}
+
+.about .headings, .partners .headings {
+	color:#2d6381;
+	}
+	
+.blue {
+	color:#2d6381;
+	}
+	
+.black {
+	color:#000;
+	}
+	
+.downloadxmltext {
+	color:#D17F20;
+	}

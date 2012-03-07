@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Openaid.nl</title>
+<link media="all" rel="stylesheet" type="text/css" href="/media/css/all.css">
+<script type="text/javascript" src="/media/js/jquery-1.6.4.min.js"></script>
+<script type="text/javascript" src="/media/js/jquery.main.js"></script>
+</head>
+<body>
+<script>
+    !function(d,s,id){
+        var js,fjs=d.getElementsByTagName(s)[0];
+        if(!d.getElementById(id)){js=d.createElement(s);
+        js.id=id;
+        js.src="//platform.twitter.com/widgets.js";
+	 fjs.parentNode.insertBefore(js,fjs);
+    }}
+    (document,"script","twitter-wjs");
+</script>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+	<div id="wrapper">
+		<div class="w1">
+			<!-- header -->
+			<header id="header" class="vcard">
+				<strong class="logo"><a href="http://beta.openaid.nl/?lang=nl" class="fn org url">Openaid.nl powered by Akvo.</a></strong>
+				<!-- lang -->
+				<nav class="lang">
+					<!--<ul>-->
+						<!--<li><a href="#">DUTCH</a></li>-->
+						<!--<li class="active"><a href="#">ENGLISH</a></li>-->
+					<!--</ul>-->
+				</nav>
+			</header>
+			<!-- navigation -->
+			<nav class="navigation">
+				<ul id="nav">
+					<li><span><a href="http://beta.openaid.nl/?lang=nl">HOME</a></span></li>
+					<li><span><a href="http://beta.openaid.nl/about/?lang=nl">ABOUT</a></span></li>
+					<li class="active"><span><a href="/whereaid_api/">SEARCH PROJECTS</a></span></li>
+					<li ><span><a href="http://beta.openaid.nl/blog/?lang=nl">BLOG</a></span></li>
+					<li><span><a href="http://beta.openaid.nl/tools-and-partners/?lang=nl">TOOLS AND PARTNERS</a></span></li>
+					<li><span><a href="http://beta.openaid.nl/questions-and-answers/?lang=nl">QUESTIONS AND ANSWERS</a></span></li>
+					<li><span><a href="http://beta.openaid.nl/contact/?lang=nl">CONTACT</a></span></li>
+				</ul>
+			</nav>
+			<!-- main -->
+			<div id="main">
+				<!-- breadcrubms -->
+				<!-- project section -->
+				<section class="project-section">
+					<header>
+						<div class="box">
+							<ul class="socials">
+								<li><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a></li>
+								<li><a href><div class="fb-like" data-send="false" data-layout="button_count" data-width="" data-show-faces="false"></div></a></li>
+							</ul>
+							<a href="/projectdetail_api_csv/{{ project.id }}/" class="download-link"><span>CSV Export</span></a>
+						</div>
+						<h1>{{ project.title }}</h1>
+						<div class="descr">
+							<p>{{ project.description }}</p>
+						</div>
+					</header>
+					<article class="hreview">
+					<table class="projectdetail">
+						{% cycle 'odd' 'even' as rowcolors silent %}
+						{% for row in table %}
+							{% if row|length == 0 %}
+								<tr><td>&nbsp;</td>
+							{% endif %}
+							{% if row|length == 1 %}
+								<tr>
+									<td class="heading"><h3>{{ row.0|upper }}</h3></td>
+								{% if rowcolors == 'even' %}
+									{% cycle rowcolors %}
+								{% endif %}
+							{% endif %}
+							{% if row|length > 1 %}
+								<tr class={{ rowcolors }}>
+								{% cycle rowcolors %}
+								{% for cell in row %}
+									<td>{{ cell }}</td>
+								{% endfor %}
+							{% endif %}
+							</tr>
+						{% endfor %}					
+					</article>
+				</section>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

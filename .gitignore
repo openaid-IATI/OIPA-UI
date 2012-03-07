@@ -1,0 +1,4 @@
+*.pyc
+*.wpr
+myproject/djapian_spaces/*
+myproject/data/*

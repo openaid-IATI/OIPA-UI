@@ -1,0 +1,42 @@
+OPENAID PROJECT INSTALL
+
+REQUIREMENTS
+============
+See req.txt for requirements.
+Use pip to install. 
+
+GIT CLONE
+=========
+Clone git repository to server.
+
+GEODJANGO
+=========
+Openaid uses GeoDjango for Google Maps API
+Read https://docs.djangoproject.com/en/dev/ref/contrib/gis/install/
+and https://docs.djangoproject.com/en/dev/ref/contrib/gis/tutorial/
+to understand how it works, though most work (implementation) has already been done.
+
+POSTGRESQL
+==========
+# create PostGIS spatial database for postgis 1.3 (Debian 5.0)
+#!/usr/bin/env bash
+POSTGIS_SQL_PATH=`pg_config --sharedir`
+createdb -E UTF8 template_postgis # Create the template spatial database.
+createlang -d template_postgis plpgsql # Adding PLPGSQL language support.
+psql -d postgres -c "UPDATE pg_database SET datistemplate='true' WHERE datname='template_postgis';"
+psql -d template_postgis -f $POSTGIS_SQL_PATH/lwpostgis.sql # Loading the PostGIS SQL routines
+psql -d template_postgis -f $POSTGIS_SQL_PATH/spatial_ref_sys.sql
+psql -d template_postgis -c "GRANT ALL ON geometry_columns TO PUBLIC;" # Enabling users to alter spatial tables.
+psql -d template_postgis -c "GRANT ALL ON spatial_ref_sys TO PUBLIC;"
+
+# Afterwards
+$ createuser -U postgres aoi888 -P
+Enter password for new role: 
+Enter it again: 
+Shall the new role be a superuser? (y/n) n
+Shall the new role be allowed to create databases? (y/n) y
+Shall the new role be allowed to create more new roles? (y/n) n
+$ createdb -U aoi888 -E utf8 -O aoi888 openaid33 -T template_postgis
+
+# Check port just in case
+ls -lA /var/run/postgresql/

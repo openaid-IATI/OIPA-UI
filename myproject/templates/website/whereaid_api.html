@@ -1,0 +1,246 @@
+{% load cur country %}
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Openaid.nl</title>
+<link media="all" rel="stylesheet" type="text/css" href="/media/css/all.css">
+<link media="all" rel="stylesheet" type="text/css" href="/media/css/jquery.fancybox-1.3.4.css">
+<script type="text/javascript" src="/media/js/jquery-1.6.4.min.js"></script>
+<script type="text/javascript" src="/media/js/jquery.main.js"></script>
+<script type="text/javascript" charset="utf-8">
+	function initialize() {
+		var myLatLng = new google.maps.LatLng(-3.2013100765,-9.64460607187);
+		var myOptions = {
+			zoom : 2,
+			center : myLatLng,
+			mapTypeId : google.maps.MapTypeId.ROADMAP,
+			scrollwheel: false,
+			streetViewControl : false
+		};
+
+		var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+		
+		{% for country in countries %}
+			var polygon = new google.maps.Polygon({
+				paths: {{ country.google_border }},
+				strokeColor: "#FFFFFF",
+				strokeOpacity: 0.8,
+				strokeWeight: 2,
+				fillColor: "#F96B15",
+				fillOpacity: 0.65,
+				country: "{{ country.name }}",
+				total_budget: "{{ country.total_budget|currency }}",
+				total_activities: "{{ country.total_activities }}",
+				total_activities_url: "{{ country.total_activities_url }}",
+				iso2 : "{{ country.iso2 }}"
+			});
+			polygon.setMap(map);
+			google.maps.event.addListener(polygon, 'click', showInfo);
+			infowindow = new google.maps.InfoWindow();
+			google.maps.event.addListener(infowindow, 'closeclick', resetColor);
+		{% endfor %}
+		
+		function showInfo(event){
+			if (typeof currentPolygon != 'undefined') {
+				currentPolygon.setOptions({fillColor: "#F96B15"});
+			}
+			this.setOptions({fillColor: "#2D6A98"});
+			
+			var contentString = "" + 
+			"<h2>" + 
+				"<img src=/media/images/flags/" + this.iso2.toLowerCase() + ".gif />" +
+				this.country + 
+			"</h2>" +
+			"<dl>" +
+				"<dt>Total Budget:</dt><dd>" + this.total_budget + "</dd>" +
+				"<dt>Total Activities:</dt><dd><a href=" + this.total_activities_url + ">" + this.total_activities + " project(s)</a></dd>" +
+				"<a href=?countries=" + this.iso2 + ">show all activities for this country</a>" +
+			"</dl>";
+			
+			infowindow.setContent(contentString);
+			infowindow.setPosition(event.latLng);
+			infowindow.open(map);
+			currentPolygon = this;
+		}
+		
+		function resetColor(){
+			currentPolygon.setOptions({fillColor: "#F96B15"});
+		}
+	}
+	
+	
+	$(document).ready(function() {
+		var script = document.createElement("script");
+		script.type = "text/javascript";
+		script.src = "http://maps.googleapis.com/maps/api/js?sensor=false&callback=initialize";
+		document.body.appendChild(script);
+	});
+	
+	<!--window.onload = loadScript;-->
+</script>
+</head>
+<body>
+	<div id="wrapper">
+		<div class="w1">
+			<!-- header -->
+			<header id="header" class="vcard">
+				<strong class="logo"><a href="http://beta.openaid.nl/?lang=nl" class="fn org url">Openaid.nl powered by Akvo.</a></strong>
+				<!-- lang -->
+				<nav class="lang">
+					<!--<ul>-->
+						<!--<li><a href="#">DUTCH</a></li>-->
+						<!--<li class="active"><a href="#">ENGLISH</a></li>-->
+					<!--</ul>-->
+				</nav>
+			</header>
+			<!-- navigation -->
+			<nav class="navigation">
+				<ul id="nav">
+					<li><span><a href="http://beta.openaid.nl/?lang=nl">HOME</a></span></li>
+					<li><span><a href="http://beta.openaid.nl/about/?lang=nl">ABOUT</a></span></li>
+					<li class="active"><span><a href="#">SEARCH PROJECTS</a></span></li>
+					<li ><span><a href="http://beta.openaid.nl/blog/?lang=nl">BLOG</a></span></li>
+					<li><span><a href="http://beta.openaid.nl/tools-and-partners/?lang=nl">TOOLS AND PARTNERS</a></span></li>
+					<li><span><a href="http://beta.openaid.nl/questions-and-answers/?lang=nl">QUESTIONS AND ANSWERS</a></span></li>
+					<li><span><a href="http://beta.openaid.nl/contact/?lang=nl">CONTACT</a></span></li>
+				</ul>
+			</nav>
+			<!-- main -->
+			<div id="main">
+				<!-- breadcrubms -->
+				<nav class="breadcrubms">
+					<ul>
+						<li><a href="#">HOME</a></li>
+						<li>ABOUT</li>
+					</ul>
+				</nav>
+				<!-- map section -->
+				<div class="map-section slide-block">
+					<header>
+						<h1>IATI data set – Dutch Ministry of Foreign Affairs</h1>
+						<a href="#" id="map-opener" class="open-close">
+							<span>show map</span>
+							<em>hide map</em>
+						</a>
+					</header>
+					<div class="block">
+						<div id="map_canvas" style="width: 926px; height: 300px"></div>
+					</div>
+				</div>
+				<!-- twocolumns -->
+				<div class="twocolumns">
+					<!-- content -->
+					<section id="content">
+						<!-- search form -->
+						<div class="search-form">
+							<form>
+								<fieldset>
+									<label for="search">keyword search</label>
+									<span class="text">{{ search_form }}</span>
+									<input type=submit class="btn-search" value="search"></input>
+								</fieldset>
+							</form>
+						</div>
+						<!-- result section -->
+						<div class="result-section">
+							<!-- sort block -->
+							<div class="sort-block">
+								<nav class="sort">
+									<span>Sort by:</span>
+									<ul>
+									        {% for link in sorting_links %}
+										<li><a href="{{ link.url }}" class="{{ link.cls }}">{{ link.text }}</a></li>
+										{% endfor %}
+									</ul>
+								</nav>
+								<nav class="save-nav">
+									<a href="/whereaid_api/?{{ request.GET.urlencode }}&format=csv">Save search results</a>
+								</nav>
+							</div>
+							<!-- pager -->
+							<div class="pager">
+								<nav>
+									<ul>
+										{% if page_obj.has_previous %}<li><span><a href="{{ url }}&page={{ page_obj.previous_page_number }}">&lt;&lt; previous</a></span></li>{% endif %}
+										<li class="active"><a href="#">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a></li>
+										{% if page_obj.has_next %}<li><span><a href="{{ url }}&page={{ page_obj.next_page_number }}">next &gt;&gt;</a></span></li>{% endif %}
+									</ul>
+								</nav>
+								<p><strong>{{ paginator.count }}</strong> project(s)</p>
+							</div>
+							<!-- results -->
+							<section class="results">
+								{% for activity in activity_list %}
+								<article class="hreview">
+									<h2 class="summary title"><a href="/projectdetail_api/{{ activity.id }}/">{{ activity.title }}</a></h2>
+									<p class="description">{{ activity.description }}</p>
+									<dl>
+										<dt>Country:</dt>
+										<dd>{{ activity.recipient_country_code|iso_to_country|default:"Unspecified" }}</dd>
+										<dt>Start date:</dt>
+										<dd class="date dtreviewed">{{ activity.start_actual }}</dd>
+										<dt>Budget:</dt>
+										<dd>{{ activity.total_budget|currency }}</dd>
+										<dt>Principal sector:</dt>
+										<dd>{{ activity.sector }}</dd>
+									</dl>
+								</article>
+								{% empty %}
+								<article class="hreview">No results</article>
+								{% endfor %}
+							</section>
+							<!-- pager -->
+							<div class="pager">
+								<nav>
+									<ul>
+										{% if page_obj.has_previous %}<li><span><a href="{{ url }}&page={{ page_obj.previous_page_number }}">&lt;&lt; previous</a></span></li>{% endif %}
+										<li class="active"><a href="#">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a></li>
+										{% if page_obj.has_next %}<li><span><a href="{{ url }}&page={{ page_obj.next_page_number }}">next &gt;&gt;</a></span></li>{% endif %}
+									</ul>
+								</nav>
+								<p><strong>{{ paginator.count }}</strong> project(s)</p>
+							</div>
+						</div>
+					</section>
+					<!-- sidebar -->
+					<aside id="sidebar">
+						<!-- filter form -->
+						<div class="filter-form">
+							<form action="">
+								<fieldset>
+									<header>
+										<h2>FILTERS:</h2>
+										<p><a href="?query={{ request.GET.query }}">Reset filters</a> | <a href=".">Show all projects</a></p>
+										<input type="submit" value="Apply filters">
+									</header>
+									<!-- filter box -->
+									{% for hidden in filter_form.hidden_fields %}
+								    	{{ hidden }}
+								    {% endfor %}
+									{% for field in filter_form.visible_fields %}
+										<div class="filter-block slide-block slide-active">
+											<div class="title">
+											<h3>{{ field.html_name|upper }}</h3>
+											<a href="#" class="open-close">open</a>
+										</div>
+										<div class="block">
+											<div id="{{ field.html_name }}" >
+												{{ field }}
+											</div>
+											{% if field.html_name != "budget" %}
+											<a class="with-popup" title="{{ field.html_name|upper }}" href="#{{ field.html_name }}">See all..</a>
+											{% endif %}
+										</div>
+									</div>
+									{% endfor %}
+								</fieldset>
+							</form>
+						</div>
+					</aside>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
