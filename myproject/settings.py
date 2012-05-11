@@ -11,7 +11,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('DWS', 'info@djangowebstudio.nl'),
+    ('***', '***'),
 )
 
 MANAGERS = ADMINS
@@ -19,12 +19,12 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'openaid33',                      # Or path to database file if using sqlite3.
-        'USER': 'aoi888',                      # Not used with sqlite3.
-        'PASSWORD': 'zz558ad',                  # Not used with sqlite3.
+        'NAME': '***',                      # Or path to database file if using sqlite3.
+        'USER': '***',                      # Not used with sqlite3.
+        'PASSWORD': '***',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         #'PORT': '5433',
-        'PORT': '5432',
+        'PORT': '***',
     },
 
     #'world': {
@@ -132,7 +132,7 @@ CURRENCY_SYMBOL = u'€ '
 GEOS_LIBRARY_PATH = '/usr/local/lib/libgeos_c.so.1'
 
 # api url
-API_URL = 'http://iati.serpia-server-l1.com/api/data/'
+API_URL = 'url to API here'
     
 
 # use local settings
