@@ -10,29 +10,15 @@ def rel(*x):
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-ADMINS = (
-    ('***', '***'),
-)
+from local_settings import ADMINS, DATABASES, SERVER_EMAIL, SECRET_KEY
+
+ADMINS = ADMINS
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '***',                      # Or path to database file if using sqlite3.
-        'USER': '***',                      # Not used with sqlite3.
-        'PASSWORD': '***',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        #'PORT': '5433',
-        'PORT': '***',
-    },
+DATABASES = DATABASES
 
-    #'world': {
-         #'ENGINE': 'django.contrib.gis.db.backends.mysql',
-         #'NAME': 'geodjango',
-         #'USER': 'geo',
-    #}
-}
+SERVER_EMAIL = SERVER_EMAIL
 
 # Cache config
 CACHES = {
@@ -78,9 +64,6 @@ MEDIA_URL = '/media/'
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
 ADMIN_MEDIA_PREFIX = '/media/admin/'
-
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = '8fz^8c2e81lab=(&-m-c$t9e$62c=^ih$e-9@$!_fr3-_s6^j-'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -133,10 +116,3 @@ GEOS_LIBRARY_PATH = '/usr/local/lib/libgeos_c.so.1'
 
 # api url
 API_URL = 'url to API here'
-    
-
-# use local settings
-try:
-    from local_settings import *
-except ImportError:
-    pass

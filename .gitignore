@@ -3,3 +3,6 @@
 myproject/djapian_spaces/*
 myproject/data/*
 .idea/*
+local_settings.py
+migrations
+migrations/*
