@@ -9,7 +9,6 @@ from django.core.cache import cache
 from settings import API_URL
 
 from world.models import WorldBorder
-from data.models import Activity, Transaction, TotalBudget, PolicyMarker
 from website.forms import FilterForm, SearchForm
 from website.templatetags.country import iso_to_country
 from website.templatetags.cur import currency
