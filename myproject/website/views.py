@@ -22,8 +22,7 @@ from decimal import Decimal
 
 class ApiMixin(object):
     def connect(self, handler, **query):
-        url = urljoin(API_URL, handler) + '/'
-        
+        url = urljoin(API_URL, handler)
         # removes queries with empty values
         query = self.filter_querydict(query)
         is_empty_query = not bool(query) #save for later reference
@@ -192,7 +191,7 @@ class WhereaidApi(ApiMixin, ListView):
             country.total_activities = len(projects)
             country_parameters = self.request.GET.copy()
             country_parameters['countries'] = country.iso2
-            country.total_activities_url = '?%s' % urlencode(country_parameters, doseq=True)  
+            country.total_activities_url = '?%s' % urlencode(country_parameters, doseq=True)
         return countries
 
 
@@ -203,11 +202,10 @@ class BaseProjectDetailApi(ApiMixin, View):
     
     def get_context_data(self, **kwargs):
         project_id = self.kwargs.get('id')
-        
         project = self.connect('activity/%s/' % project_id)
         project.update(organisation=self.connect('organisation/%s/' % project['organisation_id']))
-        transactions = self.connect('transaction', activity_id=project_id)
-        policy_markers = self.connect('policymarker', activity_id=project_id, significance__gt=0, _order_by='code')
+        transactions = self.connect('transaction', activity__id=project_id)
+        policy_markers = self.connect('policymarker', activity__id=project_id, significance__gt=0, _order_by='code')
         
         commitment_list = []
         disbursement_list = []
@@ -333,3 +331,4 @@ class SortingLink(object):
 
 def format_date(string):
     return datetime.strptime(string, '%Y-%m-%d').strftime('%d-%m-%Y') if string else None
+
