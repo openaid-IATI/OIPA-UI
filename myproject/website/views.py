@@ -299,7 +299,7 @@ class ProjectDetailApi(TemplateResponseMixin, BaseProjectDetailApi):
 class ProjectDetailApiCsv(BaseProjectDetailApi):
     def render_to_response(self, context):
         response = HttpResponse(mimetype='text/csv')
-        response['Content-Disposition'] = 'attachment; filename=%s.csv' % context['project']['title']
+        response['Content-Disposition'] = 'attachment; filename=%s.csv' % str(unicode(context['project']['title']).encode('utf-8'))
         
         writer = UnicodeWriter(response)
         writer.writerow([context['project']['title']])
