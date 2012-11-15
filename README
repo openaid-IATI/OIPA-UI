@@ -1,4 +1,4 @@
-OIPA-UI: OpenAid IATI parser and API User Interface only
+OIPA-UI: OpenAid IATI parser and API User Interface only (will only run on OIPA-V1)
 
 This is the User Interface you can use to runtest the OIPA codebase and API
 ============
