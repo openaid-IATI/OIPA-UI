@@ -1,5 +1,5 @@
 import os
-from django.contrib.gis.utils import LayerMapping
+from django.contrib.gis.utils.layermapping import LayerMapping
 from models import WorldBorder
 
 world_mapping = {

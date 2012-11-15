@@ -115,4 +115,4 @@ CURRENCY_SYMBOL = u'€ '
 GEOS_LIBRARY_PATH = '/usr/local/lib/libgeos_c.so.1'
 
 # api url
-API_URL = 'url to API here'
+API_URL = 'http://search-api-data.openaid.nl/api/data/'
