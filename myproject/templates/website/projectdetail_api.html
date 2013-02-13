@@ -59,19 +59,18 @@
 				<section class="project-section">
 					<header>
                         <div class="box">
-                            {% for key, value in list_rsr %}
-                                {% if project.identifier == key %}
+                                {% if project.identifier == "NL-1-PPR-22168" or project.identifier == "NL-1-PPR-19884" or project.identifier == "NL-1-PPR-22163" or project.identifier == "NL-1-PPR-19499" %}
                                     <div style="margin-top: 5px;" class="socials">
                                         <p style="color: #3F6B96; padding-bottom: 3px"><strong>View Akvo RSR Feeds</strong></p>
                                         <a class="button tiny" href="http://www.akvo.org/rsr/iati/projects/{{ project.identifier }}" target="_blank">Projects</a>
                                         <a class="button tiny" href="http://www.akvo.org/rsr/iati/organisations/{{ project.identifier }}">Organisations</a>
                                     </div>
+
                                 {% else %}
                                     <div style="margin-top: 5px" class="socials">
                                     <p style="margin-bottom: 3px; color: #3F6B96"><strong>View Akvo RSR Feeds</strong></p><p>Unfortunately the feed is not yet available. Contact <a href="mailto:info@akvo.nl">Akvo</a> to connect.
                                     </div>
                                 {% endif %}
-                            {% endfor %}
                             <div style="margin-top: 5px" class="socials">
                                 <p style="padding-bottom: 5px; color: #3F6B96"><strong>Export CSV file</strong></p>
                                 <a href="/projectdetail_api_csv/{{ project.id }}/" class="button tiny"><span>CSV Export</span></a>
