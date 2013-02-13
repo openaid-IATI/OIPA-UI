@@ -2,7 +2,9 @@
 *.wpr
 myproject/djapian_spaces/*
 myproject/data/*
-.idea/*
+*.idea
+*.idea/*
+myproject/.idea/*
 local_settings.py
 migrations
 migrations/*
